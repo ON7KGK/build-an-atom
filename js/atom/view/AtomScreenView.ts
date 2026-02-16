@@ -71,6 +71,7 @@ class AtomScreenView extends BAAScreenView {
       }, BAAConstants.ACCORDION_BOX_OPTIONS )
     );
     this.accordionBoxes.addChild( this.netChargeAccordionBox );
+    this.netChargeAccordionBox.visible = false;
     this.netChargeAccordionBox.addLinkedElement( model.atom.chargeProperty );
 
     const massNumberAccessibleParagraphProperty = BuildAnAtomFluent.a11y.atomScreen.massNumber.accessibleParagraph.createProperty( {
@@ -102,6 +103,7 @@ class AtomScreenView extends BAAScreenView {
       }, BAAConstants.ACCORDION_BOX_OPTIONS )
     );
     this.accordionBoxes.addChild( this.massNumberAccordionBox );
+    this.massNumberAccordionBox.visible = false;
     this.massNumberAccordionBox.addLinkedElement( model.atom.massNumberProperty );
   }
 

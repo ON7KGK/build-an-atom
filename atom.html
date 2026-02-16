@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Construire un Atome</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; background: #000; overflow: hidden; }
+    #lang-bar {
+      height: 52px;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 14px;
+    }
+    #sim-frame { width: 100%; height: calc(100% - 52px); border: none; display: block; }
+    .lang-btn {
+      padding: 10px 28px;
+      font-weight: bold;
+      font-size: 18px;
+      border: 2px solid #fff;
+      border-radius: 8px;
+      cursor: pointer;
+      background: #1a5276;
+      color: #fff;
+    }
+    .lang-btn:hover { background: #2980b9; }
+    .lang-btn.active { background: #2980b9; border-color: #f1c40f; }
+  </style>
+</head>
+<body>
+  <div id="lang-bar">
+    <button class="lang-btn" data-locale="fr">FR</button>
+    <button class="lang-btn" data-locale="nl">NL</button>
+    <button class="lang-btn" data-locale="en">EN</button>
+  </div>
+  <iframe id="sim-frame"></iframe>
+  <script>
+    var currentLocale = new URLSearchParams(window.location.search).get('locale') || 'fr';
+
+    function loadSim(locale) {
+      currentLocale = locale;
+      document.getElementById('sim-frame').src =
+        'build-an-atom_en.html?brand=adapted-from-phet&screens=1&locale=' + locale;
+      document.querySelectorAll('.lang-btn').forEach(function(btn) {
+        btn.classList.toggle('active', btn.dataset.locale === locale);
+      });
+    }
+
+    document.querySelectorAll('.lang-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        loadSim(btn.dataset.locale);
+      });
+    });
+
+    loadSim(currentLocale);
+  </script>
+</body>
+</html>

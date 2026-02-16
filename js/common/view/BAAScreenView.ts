@@ -183,6 +183,7 @@ class BAAScreenView extends ScreenView {
     } );
 
     // Add the top level children in the desired z-order.
+    electronModelControl.visible = false;
     this.addChild( electronModelControl );
     this.addChild( checkboxGroup );
     this.addChild( particleCountDisplay );
