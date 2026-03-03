@@ -6,6 +6,7 @@
  * @author John Blanco (PhET Interactive Simulations)
  */
 
+import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 import buildAnAtom from '../buildAnAtom.js';
@@ -25,6 +26,9 @@ class AtomScreen extends Screen<BAAModel, AtomScreenView> {
         name: BuildAnAtomFluent.atomStringProperty,
         screenButtonsHelpText: BuildAnAtomFluent.a11y.atomScreen.screenIcon.accessibleHelpTextStringProperty,
 
+        backgroundColorProperty: new Property(
+          new URLSearchParams( window.location.search ).get( 'fond' ) === 'sombre' ? '#1a1a2e' : 'white'
+        ),
         homeScreenIcon: new AtomScreenIcon(),
         tandem: tandem,
 

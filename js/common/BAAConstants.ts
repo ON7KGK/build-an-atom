@@ -34,6 +34,10 @@ class BAAConstants {
            '0';
   }
 
+  // Couleur de fond des panneaux (Periodic Table, Protons/Neutrons/Electrons, Consignes)
+  // Changer cette valeur pour modifier la couleur de tous les panneaux en une seule fois.
+  public static readonly PANEL_BACKGROUND_COLOR = 'rgb( 200, 225, 255 )'; // bleu clair
+
   public static readonly RESET_BUTTON_RADIUS = 20;
   public static readonly PARTICLE_TOUCH_DRAG_OFFSET = new Vector2( 0, -20 );
   public static readonly NUMBER_OF_GAME_LEVELS = 4;
@@ -50,7 +54,7 @@ class BAAConstants {
   };
   public static readonly ACCORDION_BOX_OPTIONS: AccordionBoxOptions = {
     cornerRadius: 3,
-    fill: ShredConstants.DISPLAY_PANEL_BACKGROUND_COLOR,
+    fill: BAAConstants.PANEL_BACKGROUND_COLOR,
     contentAlign: 'left',
     titleAlignX: 'left',
     buttonAlign: 'left',

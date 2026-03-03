@@ -15,8 +15,12 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import ScreenView, { ScreenViewOptions } from '../../../../joist/js/ScreenView.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
+import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import AtomIdentifier from '../../../../shred/js/AtomIdentifier.js';
 import ShredConstants from '../../../../shred/js/ShredConstants.js';
@@ -64,7 +68,10 @@ class BAAScreenView extends ScreenView {
 
     super( options );
 
-    this.viewProperties = new AtomViewProperties( { tandem: tandem.createTandem( 'viewProperties' ) } );
+    this.viewProperties = new AtomViewProperties( {
+      nuclearStabilityVisibleInitialValue: true,
+      tandem: tandem.createTandem( 'viewProperties' )
+    } );
 
     // Create the model-view transform.
     const modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
@@ -85,6 +92,7 @@ class BAAScreenView extends ScreenView {
 
     // Create the particle count indicator.
     const particleCountDisplay = new ParticleCountDisplay( model.atom, {
+      fill: BAAConstants.PANEL_BACKGROUND_COLOR,
       top: CONTROLS_INSET,
       left: CONTROLS_INSET,
       tandem: tandem.createTandem( 'particleCountDisplay' )
@@ -126,6 +134,9 @@ class BAAScreenView extends ScreenView {
           maxWidth: ShredConstants.ACCORDION_BOX_TITLE_MAX_WIDTH
         } ),
         expandedDefaultValue: true,
+        expandCollapseButtonOptions: {
+          visible: false
+        },
 
         // phet-io
         tandem: tandem.createTandem( 'periodicTableAccordionBox' ),
@@ -135,9 +146,36 @@ class BAAScreenView extends ScreenView {
       }, BAAConstants.ACCORDION_BOX_OPTIONS )
     );
 
+    // Instruction panel below the periodic table
+    const instructionTexts: Record<string, string> = {
+      fr: '<span style="font-weight:600">Glisse les protons et les neutrons dans le noyau, puis ajoute des électrons.</span><br><br>Observe comment le nombre de protons détermine l\'élément et comment les électrons influencent sa charge.',
+      nl: '<span style="font-weight:600">Schuif de protonen en neutronen in de kern en voeg daarna elektronen toe.</span><br><br>Kijk hoe het aantal protonen het element bepaalt en hoe de elektronen de lading beïnvloeden.',
+      en: '<span style="font-weight:600">Slide the protons and neutrons into the nucleus, then add electrons.</span><br><br>Observe how the number of protons determines the element and how the electrons influence its charge.'
+    };
+    const currentLocale = new URLSearchParams( window.location.search ).get( 'locale' ) || 'en';
+    const instructionPadding = 10;
+    const instructionTextMaxWidth = this.periodicTableAccordionBox.width - 2 * instructionPadding;
+    const instructionText = new RichText( instructionTexts[ currentLocale ] || instructionTexts.en, {
+      font: new PhetFont( 16.5 ),
+      fill: 'black',
+      lineWrap: instructionTextMaxWidth
+    } );
+    const instructionBg = new Rectangle( 0, 0,
+      this.periodicTableAccordionBox.width,
+      instructionText.height + 2 * instructionPadding,
+      3, 3, {
+        fill: BAAConstants.PANEL_BACKGROUND_COLOR,
+        stroke: 'black',
+        lineWidth: 1
+      }
+    );
+    instructionText.centerX = instructionBg.centerX;
+    instructionText.centerY = instructionBg.centerY;
+    const instructionPanel = new Node( { children: [ instructionBg, instructionText ] } );
+
     this.accordionBoxes = new VBox( {
-      children: [ this.periodicTableAccordionBox ],
-      spacing: 7,
+      children: [ this.periodicTableAccordionBox, instructionPanel ],
+      spacing: 30,
       top: CONTROLS_INSET,
       right: this.layoutBounds.maxX - CONTROLS_INSET
     } );
@@ -185,6 +223,7 @@ class BAAScreenView extends ScreenView {
     // Add the top level children in the desired z-order.
     electronModelControl.visible = false;
     this.addChild( electronModelControl );
+    checkboxGroup.visible = false;
     this.addChild( checkboxGroup );
     this.addChild( particleCountDisplay );
     this.addChild( this.accordionBoxes );
