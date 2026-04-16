@@ -217,6 +217,7 @@ class BAAScreenView extends ScreenView {
       right: this.layoutBounds.maxX - CONTROLS_INSET,
       bottom: this.layoutBounds.maxY - CONTROLS_INSET,
       radius: BAAConstants.RESET_BUTTON_RADIUS,
+      baseColor: BAAConstants.PANEL_BACKGROUND_COLOR,
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
 

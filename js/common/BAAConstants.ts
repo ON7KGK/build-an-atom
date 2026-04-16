@@ -36,7 +36,7 @@ class BAAConstants {
 
   // Couleur de fond des panneaux (Periodic Table, Protons/Neutrons/Electrons, Consignes)
   // Changer cette valeur pour modifier la couleur de tous les panneaux en une seule fois.
-  public static readonly PANEL_BACKGROUND_COLOR = 'rgb( 200, 225, 255 )'; // bleu clair
+  public static readonly PANEL_BACKGROUND_COLOR = '#28D15A'; // vert
 
   public static readonly RESET_BUTTON_RADIUS = 20;
   public static readonly PARTICLE_TOUCH_DRAG_OFFSET = new Vector2( 0, -20 );
