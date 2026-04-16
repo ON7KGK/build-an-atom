@@ -148,9 +148,9 @@ class BAAScreenView extends ScreenView {
 
     // Instruction panel below the periodic table
     const instructionTexts: Record<string, string> = {
-      fr: '<span style="font-weight:600">Glisse les protons et les neutrons dans le noyau, puis ajoute des électrons.</span><br><br>Observe comment le nombre de protons détermine l\'élément et comment les électrons influencent sa charge.',
-      nl: '<span style="font-weight:600">Schuif de protonen en neutronen in de kern en voeg daarna elektronen toe.</span><br><br>Kijk hoe het aantal protonen het element bepaalt en hoe de elektronen de lading beïnvloeden.',
-      en: '<span style="font-weight:600">Slide the protons and neutrons into the nucleus, then add electrons.</span><br><br>Observe how the number of protons determines the element and how the electrons influence its charge.'
+      fr: '<span style="font-weight:600">Glisse les protons et les neutrons dans le noyau de l’atome, puis ajoute des électrons.</span><br><br>Observe la façon dont le nombre de protons détermine l’élément et comment les électrons influencent sa charge.',
+      nl: '<span style="font-weight:600">Schuif de protonen en neutronen in de kern van het atoom en voeg daarna elektronen toe.</span><br><br>Kijk hoe het aantal protonen het element bepaalt en hoe de elektronen de lading beïnvloeden.',
+      en: '<span style="font-weight:600">Slide the protons and neutrons into the nucleus of the atom, then add electrons.</span><br><br>Observe how the number of protons determines the element and how the electrons influence its charge.'
     };
     const currentLocale = new URLSearchParams( window.location.search ).get( 'locale' ) || 'en';
     const instructionPadding = 10;
